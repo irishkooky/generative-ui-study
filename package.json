@@ -3,16 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "lefthook install",
-    "dev": "vite dev",
     "build": "vite build",
-    "start": "vite preview",
     "check": "oxlint --type-aware --type-check && oxfmt --check",
+    "dev": "vite dev",
     "fix": "oxlint --type-aware --fix && oxfmt",
+    "fmt": "oxfmt --check",
+    "fmt:fix": "oxfmt",
     "lint": "oxlint --type-aware --type-check",
     "lint:fix": "oxlint --type-aware --fix",
-    "fmt": "oxfmt --check",
-    "fmt:fix": "oxfmt"
+    "postinstall": "lefthook install",
+    "start": "vite preview"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.153.2",
