@@ -15,6 +15,7 @@ This starter leverages cutting-edge tools with a minimal configuration:
 | Linter     | [oxlint](https://oxc.rs/docs/guide/usage/linter)                                       | Latest    |
 | Formatter  | [oxfmt](https://oxc.rs/docs/guide/usage/formatter)                                     | Latest    |
 | Git Hooks  | [Lefthook](https://github.com/evilmartians/lefthook)                                   | Latest    |
+| Utility    | [@lightsound/cn](https://github.com/lightsound/cn)                                     | Latest    |
 | Runtime    | [Bun](https://bun.sh/)                                                                 | Latest    |
 
 ## Getting Started
@@ -80,6 +81,36 @@ You can make the linting stricter by adding more categories to `.oxlintrc.json`:
 ```
 
 Available categories: `correctness`, `suspicious`, `perf`, `style`, `pedantic`, `restriction`, `nursery`
+
+## About oxfmt Configuration
+
+This starter uses [oxfmt](https://oxc.rs/docs/guide/usage/formatter) with the following features enabled in `.oxfmtrc.json`:
+
+- **Import Sorting**: Automatically sorts and organizes import statements
+- **Tailwind CSS Class Sorting**: Keeps utility classes in a consistent order
+- **package.json Sorting**: Sorts keys and scripts in `package.json`
+
+## About @lightsound/cn
+
+[@lightsound/cn](https://github.com/lightsound/cn) is the most lightweight `className` utility — smaller than both `classnames` and `clsx`. It provides the same conditional class joining API with a minimal footprint.
+
+This starter also includes `tailwind-merge` as a peer dependency, so you can switch to Tailwind Merge–aware `cn` by simply changing the import path:
+
+```tsx
+// Basic usage (ultra-lightweight, no Tailwind Merge)
+import { cn } from "@lightsound/cn";
+
+// With Tailwind Merge (resolves conflicting Tailwind classes)
+import { cn } from "@lightsound/cn/tw-merge";
+```
+
+For example, with the `tw-merge` import, conflicting classes are resolved automatically:
+
+```tsx
+cn("text-red-500", isBlue && "text-blue-500");
+// isBlue=true  → "text-blue-500" (conflict resolved by tailwind-merge)
+// isBlue=false → "text-red-500"
+```
 
 ## Git Hooks with Lefthook
 
