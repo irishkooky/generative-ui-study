@@ -68,23 +68,25 @@ The included `.vscode/settings.json` provides the following configurations:
 
 This starter uses **minimal oxlint rules** with only the `correctness` category enabled. This catches obvious bugs without being intrusive, allowing you to customize the rules according to your project's needs.
 
-You can make the linting stricter by adding more categories to `.oxlintrc.json`:
+You can make the linting stricter by adding more categories to `oxlint.config.ts`:
 
-```json
-{
-  "categories": {
-    "correctness": "error",
-    "suspicious": "warn",
-    "perf": "warn"
-  }
-}
+```ts
+import { defineConfig } from "oxlint";
+
+export default defineConfig({
+  categories: {
+    correctness: "error",
+    suspicious: "warn",
+    perf: "warn",
+  },
+});
 ```
 
 Available categories: `correctness`, `suspicious`, `perf`, `style`, `pedantic`, `restriction`, `nursery`
 
 ## About oxfmt Configuration
 
-This starter uses [oxfmt](https://oxc.rs/docs/guide/usage/formatter) with the following features enabled in `.oxfmtrc.json`:
+This starter uses [oxfmt](https://oxc.rs/docs/guide/usage/formatter) with the following features enabled in `oxfmt.config.ts`:
 
 - **Import Sorting**: Automatically sorts and organizes import statements
 - **Tailwind CSS Class Sorting**: Keeps utility classes in a consistent order
