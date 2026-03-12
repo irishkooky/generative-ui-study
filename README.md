@@ -40,13 +40,13 @@ bun run dev
 
 ## Scripts
 
-| Command         | Description                          |
-| --------------- | ------------------------------------ |
-| `bun run dev`   | Start development server             |
-| `bun run build` | Build for production                 |
-| `bun run start` | Preview production build             |
-| `bun run check` | Run linter and formatter check       |
-| `bun run fix`   | Auto-fix lint issues and format code |
+| Command              | Description                          |
+| -------------------- | ------------------------------------ |
+| `bun run dev`        | Start development server             |
+| `bun run build`      | Build for production                 |
+| `bun run start`      | Preview production build             |
+| `bun run oxc:check`  | Run linter and formatter check       |
+| `bun run oxc:fix`    | Auto-fix lint issues and format code |
 
 ## VS Code Configuration
 
@@ -119,7 +119,7 @@ cn("text-red-500", isBlue && "text-blue-500");
 This starter uses [Lefthook](https://github.com/evilmartians/lefthook) for managing git hooks:
 
 - **pre-commit**: Runs linting and format check on staged files (fast)
-- **pre-push**: Runs the full `check` script before pushing (complete)
+- **pre-push**: Runs the full `oxc:check` script before pushing (complete)
 
 Git hooks are automatically installed when you run `bun install`.
 
