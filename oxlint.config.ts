@@ -6,6 +6,7 @@ export default defineConfig({
   options: {
     typeAware: true,
     typeCheck: true,
+    denyWarnings: true,
   },
   env: {
     node: true,
