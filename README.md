@@ -47,6 +47,10 @@ bun run dev
 | `bun run start`      | Preview production build             |
 | `bun run oxc:check`  | Run linter and formatter check       |
 | `bun run oxc:fix`    | Auto-fix lint issues and format code |
+| `bun run oxlint:check` | Run oxlint                         |
+| `bun run oxlint:fix`   | Run oxlint with safe fixes          |
+| `bun run oxfmt:check`  | Check formatting without writing    |
+| `bun run oxfmt:fix`    | Format files in place               |
 
 ## VS Code Configuration
 
@@ -66,7 +70,13 @@ The included `.vscode/settings.json` provides the following configurations:
 
 ## About oxlint Configuration
 
-This starter uses **minimal oxlint rules** with only the `correctness` category enabled. This catches obvious bugs without being intrusive, allowing you to customize the rules according to your project's needs.
+This starter keeps the **rule categories minimal** with only the `correctness` category enabled, while still enabling practical plugins and type-aware checks. This catches obvious bugs without turning the baseline ruleset into a noisy default.
+
+The current `oxlint.config.ts` also enables:
+
+- `react`, `react-perf`, `import`, `jsx-a11y`, `promise` plugins
+- `typeAware`, `typeCheck`, and `denyWarnings`
+- a `no-default-export` rule with config-file/router overrides
 
 You can make the linting stricter by adding more categories to `oxlint.config.ts`:
 
@@ -118,7 +128,7 @@ cn("text-red-500", isBlue && "text-blue-500");
 
 This starter uses [Lefthook](https://github.com/evilmartians/lefthook) for managing git hooks:
 
-- **pre-commit**: Runs linting and format check on staged files (fast)
+- **pre-commit**: Runs linting and formatting on staged files (fast)
 - **pre-push**: Runs the full `oxc:check` script before pushing (complete)
 
 Git hooks are automatically installed when you run `bun install`.

@@ -6,10 +6,10 @@ pre-commit:
   commands:
     lint:
       glob: "*.{js,jsx,ts,tsx}"
-      run: bun run oxlint -- {staged_files}
+      run: bun run oxlint:check -- {staged_files}
     format:
       glob: "*.{js,jsx,ts,tsx,json,css}"
-      run: bun run oxfmt -- {staged_files}
+      run: bun run oxfmt:fix -- {staged_files}
 
 pre-push:
   commands:

@@ -6,10 +6,10 @@
     "build": "vite build",
     "dev": "vite dev",
     "oxc:check": "oxlint && oxfmt --check",
-    "oxc:fix": "oxlint --fix && oxfmt",
-    "oxfmt": "oxfmt --check",
+    "oxc:fix": "oxlint --fix; oxfmt",
+    "oxfmt:check": "oxfmt --check",
     "oxfmt:fix": "oxfmt",
-    "oxlint": "oxlint",
+    "oxlint:check": "oxlint",
     "oxlint:fix": "oxlint --fix",
     "postinstall": "lefthook install",
     "start": "vite preview"
