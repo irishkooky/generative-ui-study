@@ -40,17 +40,17 @@ bun run dev
 
 ## Scripts
 
-| Command              | Description                          |
-| -------------------- | ------------------------------------ |
-| `bun run dev`        | Start development server             |
-| `bun run build`      | Build for production                 |
-| `bun run start`      | Preview production build             |
-| `bun run oxc:check`  | Run linter and formatter check       |
-| `bun run oxc:fix`    | Auto-fix lint issues and format code |
-| `bun run oxlint:check` | Run oxlint                         |
-| `bun run oxlint:fix`   | Run oxlint with safe fixes          |
-| `bun run oxfmt:check`  | Check formatting without writing    |
-| `bun run oxfmt:fix`    | Format files in place               |
+| Command                | Description                          |
+| ---------------------- | ------------------------------------ |
+| `bun run dev`          | Start development server             |
+| `bun run build`        | Build for production                 |
+| `bun run start`        | Preview production build             |
+| `bun run oxc:check`    | Run linter and formatter check       |
+| `bun run oxc:fix`      | Auto-fix lint issues and format code |
+| `bun run oxlint:check` | Run oxlint                           |
+| `bun run oxlint:fix`   | Run oxlint with safe fixes           |
+| `bun run oxfmt:check`  | Check formatting without writing     |
+| `bun run oxfmt:fix`    | Format files in place                |
 
 ## VS Code Configuration
 
