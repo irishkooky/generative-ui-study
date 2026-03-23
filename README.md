@@ -1,28 +1,23 @@
 # TanStack Start Starter
 
-A minimal starter template for [TanStack Start](https://tanstack.com/start) — the full-stack React framework powered by TanStack Router.
+A minimal starter template for [TanStack Start](https://tanstack.com/start), powered by TanStack Router and migrated to [Vite+](https://viteplus.dev/).
 
 ## Tech Stack
 
-This starter leverages cutting-edge tools with a minimal configuration:
-
-| Category   | Technology                                                                             | Version   |
-| ---------- | -------------------------------------------------------------------------------------- | --------- |
-| Framework  | [TanStack Start](https://tanstack.com/start)                                           | Latest    |
-| Styling    | [Tailwind CSS](https://tailwindcss.com/)                                               | 4         |
-| Language   | [TypeScript Native](https://devblogs.microsoft.com/typescript/typescript-native-port/) | 7 Preview |
-| Build Tool | [Vite](https://vite.dev/)                                                              | 8 Beta    |
-| Linter     | [oxlint](https://oxc.rs/docs/guide/usage/linter)                                       | Latest    |
-| Formatter  | [oxfmt](https://oxc.rs/docs/guide/usage/formatter)                                     | Latest    |
-| Git Hooks  | [Lefthook](https://github.com/evilmartians/lefthook)                                   | Latest    |
-| Utility    | [@lightsound/cn](https://github.com/lightsound/cn)                                     | Latest    |
-| Runtime    | [Bun](https://bun.sh/)                                                                 | Latest    |
+| Category  | Technology                                                                             | Version   |
+| --------- | -------------------------------------------------------------------------------------- | --------- |
+| Framework | [TanStack Start](https://tanstack.com/start)                                           | Latest    |
+| Toolchain | [Vite+](https://viteplus.dev/)                                                         | Latest    |
+| Styling   | [Tailwind CSS](https://tailwindcss.com/)                                               | 4         |
+| Language  | [TypeScript Native](https://devblogs.microsoft.com/typescript/typescript-native-port/) | 7 Preview |
+| Git Hooks | [Vite+ commit hooks](https://viteplus.dev/guide/commit-hooks)                          | Latest    |
+| Utility   | [@lightsound/cn](https://github.com/lightsound/cn)                                     | Latest    |
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) installed on your machine
+- [Vite+](https://viteplus.dev/guide/) installed globally so `vp` is available
 
 ### Installation
 
@@ -31,107 +26,61 @@ This starter leverages cutting-edge tools with a minimal configuration:
 git clone https://github.com/lightsound/tanstack-start-start.git
 cd tanstack-start-start
 
-# Install dependencies (git hooks are automatically set up)
-bun install
+# Install dependencies
+vp install
 
 # Start development server
-bun run dev
+vp dev
 ```
 
-## Scripts
+## Common Commands
 
-| Command                | Description                          |
-| ---------------------- | ------------------------------------ |
-| `bun run dev`          | Start development server             |
-| `bun run build`        | Build for production                 |
-| `bun run start`        | Preview production build             |
-| `bun run oxc:check`    | Run linter and formatter check       |
-| `bun run oxc:fix`      | Auto-fix lint issues and format code |
-| `bun run oxlint:check` | Run oxlint                           |
-| `bun run oxlint:fix`   | Run oxlint with safe fixes           |
-| `bun run oxfmt:check`  | Check formatting without writing     |
-| `bun run oxfmt:fix`    | Format files in place                |
+| Command      | Description                         |
+| ------------ | ----------------------------------- |
+| `vp install` | Install dependencies                |
+| `vp dev`     | Start development server            |
+| `vp build`   | Build for production                |
+| `vp preview` | Preview the production build        |
+| `vp check`   | Run formatting, linting, type-check |
+| `vp lint`    | Run linting only                    |
+| `vp fmt`     | Format source files                 |
+| `vp test`    | Run tests                           |
+
+## Configuration
+
+Vite+, linting, and formatting are configured in `vite.config.ts`:
+
+- `lint` contains the Oxlint-compatible rules, plugins, ignores, and type-aware options
+- `fmt` contains Oxfmt-compatible formatting behavior such as import sorting and Tailwind class sorting
+- `staged` defines pre-commit checks for staged files through `vp staged`
+- Vite app configuration remains in the same `defineConfig()` call alongside those blocks
 
 ## VS Code Configuration
 
-### Recommended Extension
+This project recommends the [oxc extension](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) for formatting and linting support in the editor.
 
-This project recommends installing the [oxc extension](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) for the best development experience.
+The included `.vscode/settings.json` configures:
 
-### Editor Settings
-
-The included `.vscode/settings.json` provides the following configurations:
-
-- **Format on Save**: oxfmt automatically formats your code when you save a file
-- **Read-only Files**: The following files are set to read-only to prevent accidental edits:
-  - `**/*.md` — Markdown files should be managed by AI, not edited directly
-  - `bun.lock` — Auto-generated lockfile, should not be manually modified
-  - `**/routeTree.gen.ts` — Auto-generated by TanStack Router, should not be manually modified
-
-## About oxlint Configuration
-
-This starter keeps the **rule categories minimal** with only the `correctness` category enabled, while still enabling practical plugins and type-aware checks. This catches obvious bugs without turning the baseline ruleset into a noisy default.
-
-The current `oxlint.config.ts` also enables:
-
-- `react`, `react-perf`, `import`, `jsx-a11y`, `promise` plugins
-- `typeAware`, `typeCheck`, and `denyWarnings`
-- a `no-default-export` rule with config-file/router overrides
-
-You can make the linting stricter by adding more categories to `oxlint.config.ts`:
-
-```ts
-import { defineConfig } from "oxlint";
-
-export default defineConfig({
-  categories: {
-    correctness: "error",
-    suspicious: "warn",
-    perf: "warn",
-  },
-});
-```
-
-Available categories: `correctness`, `suspicious`, `perf`, `style`, `pedantic`, `restriction`, `nursery`
-
-## About oxfmt Configuration
-
-This starter uses [oxfmt](https://oxc.rs/docs/guide/usage/formatter) with the following features enabled in `oxfmt.config.ts`:
-
-- **Import Sorting**: Automatically sorts and organizes import statements
-- **Tailwind CSS Class Sorting**: Keeps utility classes in a consistent order
-- **package.json Sorting**: Sorts keys and scripts in `package.json`
+- format on save through the Oxc extension
+- `pnpm-lock.yaml`, generated route files, and Markdown files as read-only
+- Prettier, Biome, and ESLint disabled to avoid overlapping tooling
 
 ## About @lightsound/cn
 
-[@lightsound/cn](https://github.com/lightsound/cn) is the most lightweight `className` utility — smaller than both `classnames` and `clsx`. It provides the same conditional class joining API with a minimal footprint.
-
-This starter also includes `tailwind-merge` as a peer dependency, so you can switch to Tailwind Merge–aware `cn` by simply changing the import path:
+[@lightsound/cn](https://github.com/lightsound/cn) is a lightweight `className` utility. This starter also includes `tailwind-merge`, so you can switch to Tailwind Merge-aware `cn` by changing the import path:
 
 ```tsx
-// Basic usage (ultra-lightweight, no Tailwind Merge)
 import { cn } from "@lightsound/cn";
-
-// With Tailwind Merge (resolves conflicting Tailwind classes)
-import { cn } from "@lightsound/cn/tw-merge";
+import { cn as twMergeCn } from "@lightsound/cn/tw-merge";
 ```
 
-For example, with the `tw-merge` import, conflicting classes are resolved automatically:
+## Git Hooks with Vite+
 
-```tsx
-cn("text-red-500", isBlue && "text-blue-500");
-// isBlue=true  → "text-blue-500" (conflict resolved by tailwind-merge)
-// isBlue=false → "text-red-500"
-```
+This starter uses [Vite+ commit hooks](https://viteplus.dev/guide/commit-hooks):
 
-## Git Hooks with Lefthook
-
-This starter uses [Lefthook](https://github.com/evilmartians/lefthook) for managing git hooks:
-
-- **pre-commit**: Runs linting and formatting on staged files (fast)
-- **pre-push**: Runs the full `oxc:check` script before pushing (complete)
-
-Git hooks are automatically installed when you run `bun install`.
+- Run `vp config` once for this clone to install the local Git hooks
+- `vp staged` runs `vp check --fix` for staged `js`, `jsx`, `ts`, `tsx`, `json`, and `css` files
+- If you add CI later, use `vp check`, `vp test`, and `vp build` as the default validation steps
 
 ## Developer Tools
 
@@ -139,4 +88,4 @@ In development mode, this starter includes [TanStack Router DevTools](https://ta
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE.md) for details.

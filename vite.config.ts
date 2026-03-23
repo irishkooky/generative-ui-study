@@ -1,9 +1,51 @@
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig } from "vite-plus";
 
 export default defineConfig({
+  fmt: {
+    ignorePatterns: ["**/routeTree.gen.ts"],
+    sortImports: {
+      partitionByComment: true,
+    },
+    sortPackageJson: {
+      sortScripts: true,
+    },
+    sortTailwindcss: {
+      functions: ["cn"],
+    },
+  },
+  lint: {
+    categories: {
+      correctness: "error",
+    },
+    env: {
+      browser: true,
+      node: true,
+    },
+    ignorePatterns: ["**/routeTree.gen.ts", "vite.config.ts"],
+    options: {
+      denyWarnings: true,
+      typeAware: true,
+      typeCheck: true,
+    },
+    overrides: [
+      {
+        files: ["src/router.tsx", "vite.config.ts", "*.config.ts"],
+        rules: {
+          "no-default-export": "off",
+        },
+      },
+    ],
+    plugins: ["react", "react-perf", "import", "jsx-a11y", "promise"],
+    rules: {
+      "no-default-export": "error",
+    },
+  },
+  staged: {
+    "*.{js,jsx,ts,tsx,json,css}": "vp check --fix",
+  },
   plugins: [
     tailwindcss(),
     tanstackStart(),
@@ -12,5 +54,8 @@ export default defineConfig({
   ],
   resolve: {
     tsconfigPaths: true,
+  },
+  test: {
+    include: ["src/**/*.test.ts"],
   },
 });
