@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@lightsound/cn": "^2.0.1",
-    "@tanstack/react-router": "^1.168.2",
-    "@tanstack/react-start": "^1.167.3",
+    "@tanstack/react-router": "^1.168.10",
+    "@tanstack/react-start": "^1.167.16",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwind-merge": "^3.5.0"
