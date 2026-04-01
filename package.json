@@ -26,6 +26,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.0",
+    "better-typescript-lib": "^2.12.0",
     "react-doctor": "^0.0.30",
     "tailwindcss": "^4.2.2",
     "vite": "npm:@voidzero-dev/vite-plus-core@latest",
@@ -36,6 +37,9 @@
     "overrides": {
       "vite": "npm:@voidzero-dev/vite-plus-core@latest",
       "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
