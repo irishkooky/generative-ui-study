@@ -24,7 +24,7 @@ export default defineConfig({
       browser: true,
       node: true,
     },
-    ignorePatterns: ["**/routeTree.gen.ts", "vite.config.ts"],
+    ignorePatterns: ["**/routeTree.gen.ts"],
     options: {
       denyWarnings: true,
       typeAware: true,
@@ -32,7 +32,7 @@ export default defineConfig({
     },
     overrides: [
       {
-        files: ["src/router.tsx", "vite.config.ts", "*.config.ts"],
+        files: ["src/router.tsx", "*.config.ts"],
         rules: {
           "no-default-export": "off",
         },
@@ -56,6 +56,6 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   test: {
-    include: ["src/**/*.test.ts"],
+    include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
   },
 });
