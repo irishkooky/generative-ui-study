@@ -8,6 +8,7 @@
     "dev": "vp dev",
     "doctor": "react-doctor . --verbose --yes --no-lint",
     "fix": "vp check --fix",
+    "knip": "knip",
     "preview": "vp preview",
     "test": "vp test"
   },
@@ -27,6 +28,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.0",
     "better-typescript-lib": "^2.12.0",
+    "knip": "^6.1.1",
     "react-doctor": "^0.0.30",
     "tailwindcss": "^4.2.2",
     "vite": "npm:@voidzero-dev/vite-plus-core@latest",
