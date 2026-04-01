@@ -21,9 +21,6 @@ importers:
       '@tanstack/react-start':
         specifier: ^1.167.16
         version: 1.167.16(@voidzero-dev/vite-plus-core@0.1.15(@types/node@25.3.0)(esbuild@0.27.4)(jiti@2.6.1)(tsx@4.21.0)(typescript@6.0.2)(yaml@2.8.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      a11yer:
-        specifier: ^0.1.0
-        version: 0.1.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
         specifier: ^19.2.4
         version: 19.2.4
@@ -1448,12 +1445,6 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [win32]
-
-  a11yer@0.1.0:
-    resolution: {integrity: sha512-yJPZRt5q3D37ymlfcMXg2kyjv8nYhazxKcb/rI1gZzaApOEtX6wees4j5BgIUi17KlVVmPDAM6S1V817/TK3Pg==}
-    peerDependencies:
-      react: ^19.2.4
-      react-dom: ^19.2.4
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -3538,11 +3529,6 @@ snapshots:
 
   '@voidzero-dev/vite-plus-win32-x64-msvc@0.1.15':
     optional: true
-
-  a11yer@0.1.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
-    dependencies:
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
 
   acorn-jsx@5.3.2(acorn@8.16.0):
     dependencies:

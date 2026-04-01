@@ -1,7 +1,6 @@
 /// <reference types="vite-plus/client" />
 import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { A11yer } from "a11yer";
 
 import appCss from "../styles.css?url";
 
@@ -27,9 +26,7 @@ function RootComponent() {
         <HeadContent />
       </head>
       <body>
-        <A11yer>
-          <Outlet />
-        </A11yer>
+        <Outlet />
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>
