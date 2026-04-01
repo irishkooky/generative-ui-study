@@ -29,14 +29,14 @@ Open the URL printed in the terminal (Vite’s default is usually `http://localh
 
 ## Everyday commands
 
-| Command       | Purpose                                      |
-|---------------|----------------------------------------------|
-| `vp dev`      | Start the dev server with HMR                |
-| `vp build`    | Production build                             |
-| `vp preview`  | Preview the production build locally         |
-| `vp check`    | Format, lint, and type-check (fix with `--fix` where applicable) |
-| `vp test`     | Run tests                                    |
-| `vp help`     | List built-in commands and options           |
+| Command      | Purpose                                                          |
+| ------------ | ---------------------------------------------------------------- |
+| `vp dev`     | Start the dev server with HMR                                    |
+| `vp build`   | Production build                                                 |
+| `vp preview` | Preview the production build locally                             |
+| `vp check`   | Format, lint, and type-check (fix with `--fix` where applicable) |
+| `vp test`    | Run tests                                                        |
+| `vp help`    | List built-in commands and options                               |
 
 `package.json` scripts (`dev`, `build`, `check`, `test`, …) delegate to these same `vp` entry points.
 
