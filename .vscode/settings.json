@@ -5,7 +5,16 @@
     "**/*.md": true
   },
   "cSpell.ignorePaths": ["pnpm-lock.yaml", "**/routeTree.gen.ts", "**/*.md"],
-  "cSpell.words": ["Lefthook", "oxfmt", "oxlint", "stylesheet", "tsgo", "tsgolint", "voidzero"],
+  "cSpell.words": [
+    "Lefthook",
+    "oxfmt",
+    "oxlint",
+    "stylesheet",
+    "tsgo",
+    "tsgolint",
+    "voidzero",
+    "webpro"
+  ],
 
   // oxc
   "oxc.enable": true,
