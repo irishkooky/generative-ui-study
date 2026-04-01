@@ -6,6 +6,7 @@
     "build": "vp build",
     "check": "vp check",
     "dev": "vp dev",
+    "doctor": "react-doctor . --verbose --yes --no-lint",
     "fix": "vp check --fix",
     "preview": "vp preview",
     "test": "vp test"
@@ -25,6 +26,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.0",
+    "react-doctor": "^0.0.30",
     "tailwindcss": "^4.2.2",
     "vite": "npm:@voidzero-dev/vite-plus-core@latest",
     "vite-plus": "latest"
