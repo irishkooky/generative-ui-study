@@ -37,7 +37,7 @@ function RootComponent() {
 function NotFoundComponent() {
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold">404</h1>
+      <h1 className="text-2xl font-semibold">404</h1>
       <p>ページが見つかりませんでした。</p>
     </div>
   );
@@ -46,7 +46,7 @@ function NotFoundComponent() {
 function ErrorComponent({ error }: { error: Error }) {
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-red-600">エラー</h1>
+      <h1 className="text-2xl font-semibold text-red-600">エラー</h1>
       <p>{error.message}</p>
     </div>
   );
