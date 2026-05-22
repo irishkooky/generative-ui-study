@@ -2,12 +2,12 @@ import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
-import reactDoctor from "react-doctor/eslint-plugin";
+import { RECOMMENDED_RULES, TANSTACK_START_RULES } from "oxlint-plugin-react-doctor";
 import { defineConfig } from "vite-plus";
 
 const reactDoctorRules = {
-  ...reactDoctor.configs.recommended.rules,
-  ...reactDoctor.configs["tanstack-start"].rules,
+  ...RECOMMENDED_RULES,
+  ...TANSTACK_START_RULES,
 };
 
 export default defineConfig({
@@ -32,7 +32,7 @@ export default defineConfig({
       node: true,
     },
     ignorePatterns: ["**/routeTree.gen.ts"],
-    jsPlugins: [{ name: "react-doctor", specifier: "react-doctor/oxlint-plugin" }],
+    jsPlugins: [{ name: "react-doctor", specifier: "oxlint-plugin-react-doctor" }],
     options: {
       denyWarnings: true,
       typeAware: true,
