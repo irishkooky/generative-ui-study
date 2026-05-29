@@ -45,6 +45,13 @@ export default defineConfig({
           "no-default-export": "off",
         },
       },
+      {
+        files: ["src/routes/**"],
+        rules: {
+          "react-doctor/no-multi-comp": "off",
+          "react-doctor/only-export-components": "off",
+        },
+      },
     ],
     plugins: ["react", "react-perf", "import", "jsx-a11y", "promise"],
     rules: {

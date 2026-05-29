@@ -6,3 +6,6 @@ onlyBuiltDependencies:
   - esbuild
 
 minimumReleaseAge: 0
+
+allowBuilds:
+  msgpackr-extract: false
