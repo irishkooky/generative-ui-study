@@ -3,9 +3,6 @@
   "private": true,
   "license": "MIT",
   "type": "module",
-  "engines": {
-    "node": ">=24.17.0"
-  },
   "scripts": {
     "build": "vp build",
     "check": "vp check",
@@ -39,6 +36,9 @@
     "tailwindcss": "^4.3.1",
     "vite": "npm:@voidzero-dev/vite-plus-core@0.2.1",
     "vite-plus": "0.2.1"
+  },
+  "engines": {
+    "node": ">=24.17.0"
   },
   "packageManager": "pnpm@11.8.0"
 }
