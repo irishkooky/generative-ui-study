@@ -69,9 +69,6 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] }),
   ],
-  resolve: {
-    tsconfigPaths: true,
-  },
   test: {
     include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
   },
