@@ -12,7 +12,10 @@ A minimal application template built with [TanStack Start](https://tanstack.com/
 
 ## Requirements
 
-Install [Vite+](https://viteplus.dev/guide/) so the `vp` command is available on your `PATH`. Use `vp install` and other `vp` commands to manage dependencies—avoid calling `pnpm` / `npm` / `yarn` directly unless you know you need an exception.
+- **Node.js** — see [`.node-version`](.node-version) (matches the `engines` field in `package.json`)
+- **[Vite+](https://viteplus.dev/guide/)** — so the `vp` command is available on your `PATH`
+
+Use `vp` for all dependency and tooling operations; see [AGENTS.md](AGENTS.md) for the full workflow and pitfalls.
 
 ## Getting started
 
