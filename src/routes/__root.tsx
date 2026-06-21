@@ -1,9 +1,16 @@
 /// <reference types="vite-plus/client" />
 import type { ErrorComponentProps } from "@tanstack/react-router";
 import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { Suspense, lazy } from "react";
 
 import appCss from "../styles.css?url";
+
+const TanStackRouterDevtools = import.meta.env.DEV
+  ? lazy(async () => {
+      const { TanStackRouterDevtools } = await import("../router-devtools");
+      return { default: TanStackRouterDevtools };
+    })
+  : null;
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -28,7 +35,11 @@ function RootComponent() {
       </head>
       <body>
         <Outlet />
-        <TanStackRouterDevtools position="bottom-right" />
+        {TanStackRouterDevtools ? (
+          <Suspense fallback={null}>
+            <TanStackRouterDevtools position="bottom-right" />
+          </Suspense>
+        ) : null}
         <Scripts />
       </body>
     </html>
