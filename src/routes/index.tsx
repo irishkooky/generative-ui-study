@@ -1,5 +1,5 @@
-import { cn } from "@lightsound/cn/tw-merge";
 import { createFileRoute } from "@tanstack/react-router";
+import { cn } from "cnfast";
 import { useState } from "react";
 
 export const Route = createFileRoute("/")({

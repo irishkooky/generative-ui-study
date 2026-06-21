@@ -1,4 +1,4 @@
-import { cn } from "@lightsound/cn/tw-merge";
+import { cn } from "cnfast";
 import { describe, expect, it } from "vite-plus/test";
 
 describe("cn", () => {

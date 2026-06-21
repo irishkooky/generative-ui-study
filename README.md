@@ -7,14 +7,12 @@ A minimal application template built with [TanStack Start](https://tanstack.com/
 - **TanStack Start** with file-based routing under `src/routes/`
 - **React 19** and **TypeScript**
 - **Tailwind CSS 4** with the Vite plugin
-- [**`@lightsound/cn`**](https://github.com/lightsound/cn) for class name merging (`tailwind-merge` under the hood)
+- [**`cnfast`**](https://github.com/aidenybai/cnfast) for class name merging (drop-in replacement for `clsx` + `tailwind-merge`)
 - **Vite+**-managed tooling: Oxlint, Oxfmt, Vitest-style testing via `vite-plus/test` (see [AGENTS.md](AGENTS.md) for workflow and pitfalls)
 
 ## Requirements
 
-Install [Vite+](https://viteplus.dev/guide/) so the `vp` command is available on your `PATH`.
-
-This repo pins **`pnpm@10.32.1`** as the package manager; Vite+ (`vp install`, etc.) is the supported way to manage dependencies—avoid calling `pnpm` / `npm` / `yarn` directly for installs unless you know you need an exception.
+Install [Vite+](https://viteplus.dev/guide/) so the `vp` command is available on your `PATH`. Use `vp install` and other `vp` commands to manage dependencies—avoid calling `pnpm` / `npm` / `yarn` directly unless you know you need an exception.
 
 ## Getting started
 
@@ -42,7 +40,7 @@ Open the URL printed in the terminal (Vite’s default is usually `http://localh
 
 Optional maintenance tools (not part of `vp check`):
 
-- `vp run knip` — unused files, dependencies, exports (`knip.config.ts`)
+- `vp run fallow` — unused files, dependencies, exports (`.fallowrc.json`)
 - `vp run doctor` — React health checks (`react-doctor`, `--no-lint` in the script)
 
 ## License

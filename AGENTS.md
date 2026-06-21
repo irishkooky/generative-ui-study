@@ -20,5 +20,5 @@
 
 Not part of `vp check`. Use `vp run` so installs stay routed through Vite+.
 
-- **Knip** (`vp run knip`) — unused files, dependencies, and exports. Use when trimming deps or refactoring entry points (`knip.config.ts` configures the project).
+- **Fallow** (`vp run fallow`) — unused files, dependencies, and exports. Use when trimming deps or refactoring entry points (`.fallowrc.json` configures the project).
 - **react-doctor** (`vp run doctor`) — React-focused health checks. The script uses `--no-lint`; keep ordinary linting on `vp lint`.
