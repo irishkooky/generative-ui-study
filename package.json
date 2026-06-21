@@ -1,13 +1,14 @@
 {
   "name": "tanstack-start-start",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "build": "vp build",
     "check": "vp check",
     "dev": "vp dev",
-    "doctor": "react-doctor . --verbose --yes --no-lint",
-    "fallow": "fallow dead-code",
+    "doctor": "vp exec react-doctor . --verbose --yes --no-lint",
+    "fallow": "vp exec fallow dead-code",
     "fix": "vp check --fix",
     "preview": "vp preview",
     "test": "vp test",
