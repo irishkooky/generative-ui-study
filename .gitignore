@@ -5,6 +5,11 @@ node_modules
 dist
 .output
 
+# generated tool dirs
+.tanstack
+.cursor
+.agents/skills
+
 # environment variable files
 .env
 .env.development.local
