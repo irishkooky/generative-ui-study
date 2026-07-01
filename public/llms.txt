@@ -1,0 +1,15 @@
+# Generative UI Study
+
+This site is a TanStack Start study app about Generative UI.
+
+Start here:
+
+- `/` - interactive demo showing UI surfaces inserted into chat
+- `/llms-full.txt` - full agent-readable project overview
+
+Main concepts:
+
+- Generative UI means returning interactive UI in a conversation when text is not enough.
+- MCP Apps use UI resources embedded in a host, commonly sandboxed.
+- A2UI/json-render style flows use declarative component JSON rendered by the host.
+- WebMCP style flows expose meaningful tools from web apps so humans and AI can cooperate.

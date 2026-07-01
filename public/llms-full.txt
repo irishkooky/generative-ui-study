@@ -1,0 +1,36 @@
+# Generative UI Study: full context
+
+This app is a learning project built with TanStack Start and deployed to Cloudflare Workers.
+
+The project studies Generative UI as an interface design shift:
+
+1. AI as producer
+
+AI can return more than text. In chat-like products, a response can include an interactive UI surface. The UI is not the entrance to the application. It is inserted at the moment when comparison, choice, confirmation, or action would be hard to do with text alone.
+
+2. MCP Apps style
+
+MCP Apps attach UI resources to tool responses. The host can render the resource in a sandbox and provide host theme values through CSS variables. This keeps the generated interaction close to the conversation while preserving safety boundaries.
+
+3. A2UI/json-render style
+
+Another approach is to have the agent generate declarative component JSON instead of HTML. The host owns the component catalog and renderer. The model can stream flat component messages, and the host renders native UI elements safely.
+
+4. AI as consumer
+
+AI agents also read and operate web apps. Web apps can become more agent-friendly by using semantic HTML, efficient Markdown entry points, and meaningful tools. WebMCP explores exposing web app capabilities as tools so humans and AI can cooperate on the same interface.
+
+Files:
+
+- `src/lib/generative-ui.ts`: scenario data, component specs, tool specs
+- `src/routes/index.tsx`: chat transcript and generated surface renderer
+- `public/llms.txt`: short agent entry point
+- `public/llms-full.txt`: this full context
+
+Suggested next implementation steps:
+
+- Add a real LLM endpoint that streams component spec messages.
+- Validate generated component specs against a catalog schema.
+- Add fallback UI for invalid or incomplete generated output.
+- Add Markdown responses based on the `Accept: text/markdown` request header.
+- Implement real MCP Apps or WebMCP integration when the target host supports it.

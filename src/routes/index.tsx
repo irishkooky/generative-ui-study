@@ -2,193 +2,369 @@ import { createFileRoute } from "@tanstack/react-router";
 import { cn } from "cnfast";
 import { useState } from "react";
 
-import { createUiPlan, studyIntents, type StudyIntent, type UiBlock } from "../lib/generative-ui";
+import {
+  getScenario,
+  scenarioIds,
+  type ChatMessage,
+  type ComponentSpec,
+  type Scenario,
+  type ScenarioId,
+  type UiSurface,
+} from "../lib/generative-ui";
 
 export const Route = createFileRoute("/")({
   component: Home,
 });
 
 function Home() {
-  const [intent, setIntent] = useState<StudyIntent>("dashboard");
-  const plan = createUiPlan(intent);
+  const [scenarioId, setScenarioId] = useState<ScenarioId>("mcp-apps");
+  const [actionResult, setActionResult] = useState(
+    "まだ UI からの tool call は実行されていません。",
+  );
+  const [todoText, setTodoText] = useState("SpeakerDeck の内容を README に反映する");
+  const scenario = getScenario(scenarioId);
 
   return (
-    <main className="min-h-screen bg-[#f7f3ec] text-[#171717]">
-      <section className="mx-auto grid min-h-screen w-full max-w-7xl grid-cols-1 gap-8 px-5 py-8 md:grid-cols-[360px_1fr] md:px-8 lg:gap-12">
-        <aside className="flex flex-col justify-between gap-8 border-b border-[#171717]/15 pb-6 md:border-r md:border-b-0 md:pr-8 md:pb-0">
-          <div className="space-y-7">
+    <main className="min-h-screen bg-[#f5f7fb] text-[#111827]">
+      <section className="mx-auto grid min-h-screen w-full max-w-7xl grid-cols-1 gap-6 px-4 py-5 md:grid-cols-[300px_1fr] md:px-7">
+        <aside className="grid content-between gap-6 border-b border-[#d6dce8] pb-5 md:border-r md:border-b-0 md:pr-6 md:pb-0">
+          <div className="space-y-6">
             <div className="space-y-3">
-              <p className="text-sm font-semibold tracking-[0.14em] text-[#7a3f2b] uppercase">
-                TanStack Start Lab
+              <p className="text-xs font-black tracking-[0.16em] text-[#006d77] uppercase">
+                Frontend x AI
               </p>
-              <h1 className="max-w-[12ch] text-5xl leading-[0.95] font-black sm:text-6xl">
-                Generative UI Study
-              </h1>
-              <p className="max-w-sm text-base leading-7 text-[#4d4840]">
-                intent を UI schema に変換し、React renderer で画面を組み立てる流れを学ぶための
-                Cloudflare Workers 対応プロジェクトです。
+              <h1 className="text-4xl leading-none font-black sm:text-5xl">Generative UI Study</h1>
+              <p className="text-sm leading-6 text-[#4b5563]">
+                テキスト応答だけでは足りない瞬間に、会話の中へ操作可能な UI
+                を差し込む設計を学ぶラボです。
               </p>
             </div>
 
-            <div className="space-y-3">
-              <p className="text-sm font-semibold text-[#4d4840]">Intent preset</p>
+            <nav aria-label="Scenario">
+              <p className="mb-2 text-sm font-black text-[#374151]">Scenario</p>
               <menu className="grid gap-2">
-                {studyIntents.map((item) => (
-                  <li key={item}>
-                    <button
-                      className={cn(
-                        "flex w-full items-center justify-between rounded-md border px-4 py-3 text-left text-sm font-semibold transition",
-                        item === intent
-                          ? "border-[#171717] bg-[#171717] text-white"
-                          : "border-[#171717]/15 bg-white/55 text-[#2a2925] hover:border-[#171717]/45",
-                      )}
-                      onClick={() => setIntent(item)}
-                      type="button"
-                    >
-                      <span>{intentLabel[item]}</span>
-                      <span aria-hidden="true">{item === intent ? "On" : "+"}</span>
-                    </button>
-                  </li>
-                ))}
+                {scenarioIds.map((id) => {
+                  const item = getScenario(id);
+                  return (
+                    <li key={id}>
+                      <button
+                        className={cn(
+                          "grid w-full gap-1 rounded-md border px-3 py-3 text-left transition",
+                          id === scenarioId
+                            ? "border-[#111827] bg-[#111827] text-white"
+                            : "border-[#c9d2df] bg-white text-[#111827] hover:border-[#006d77]",
+                        )}
+                        onClick={() => {
+                          setScenarioId(id);
+                          setActionResult("まだ UI からの tool call は実行されていません。");
+                        }}
+                        type="button"
+                      >
+                        <span className="text-sm font-black">{scenarioLabel[id]}</span>
+                        <span
+                          className={cn(
+                            "text-xs",
+                            id === scenarioId ? "text-[#d1f7ff]" : "text-[#6b7280]",
+                          )}
+                        >
+                          {item.angle === "producer" ? "AI as producer" : "AI as consumer"}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
               </menu>
-            </div>
+            </nav>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 text-sm">
-            {["Intent", "Schema", "Renderer"].map((label, index) => (
-              <div className="border-t border-[#171717]/20 pt-3" key={label}>
-                <p className="font-black">{String(index + 1).padStart(2, "0")}</p>
-                <p className="text-[#665f54]">{label}</p>
-              </div>
-            ))}
+          <div className="grid gap-2 text-sm text-[#4b5563]">
+            <p className="font-black text-[#111827]">Agent-readable paths</p>
+            <code>/llms.txt</code>
+            <code>/llms-full.txt</code>
           </div>
         </aside>
 
-        <div className="grid content-center gap-6">
-          <section className="grid gap-5 lg:grid-cols-[1fr_320px]">
-            <div className="rounded-lg border border-[#171717]/15 bg-white p-5 shadow-[0_24px_80px_rgba(23,23,23,0.08)]">
-              <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <section className="grid gap-4">
+            <header className="grid gap-3 rounded-md border border-[#c9d2df] bg-white px-5 py-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="text-sm font-semibold text-[#7a3f2b]">Generated experience</p>
-                  <h2 className="text-3xl font-black">{plan.title}</h2>
+                  <p className="text-sm font-black text-[#006d77]">Current model</p>
+                  <h2 className="text-2xl font-black">{scenario.title}</h2>
                 </div>
-                <span className="rounded-full bg-[#dbe9dd] px-3 py-1 text-sm font-bold text-[#25422d]">
-                  {plan.intent}
+                <span className="rounded-full bg-[#ffddd2] px-3 py-1 text-sm font-black text-[#8a2d1c]">
+                  {scenario.angle}
                 </span>
               </div>
-              <div className="grid gap-4">
-                {plan.blocks.map((block, index) => (
-                  <GeneratedBlock block={block} index={index} key={`${block.kind}-${index}`} />
+              <p className="max-w-3xl text-sm leading-6 text-[#4b5563]">{scenario.description}</p>
+            </header>
+
+            <section
+              aria-label="Chat transcript"
+              className="grid gap-3 rounded-md border border-[#c9d2df] bg-[#edf2f7] p-4"
+            >
+              {scenario.chat.map((message, index) => (
+                <ChatBubble
+                  actionResult={actionResult}
+                  key={`${message.kind}-${index}`}
+                  message={message}
+                  scenario={scenario}
+                  setActionResult={setActionResult}
+                  setTodoText={setTodoText}
+                  todoText={todoText}
+                />
+              ))}
+            </section>
+          </section>
+
+          <aside className="grid content-start gap-4">
+            <section className="rounded-md border border-[#c9d2df] bg-white p-4">
+              <p className="text-sm font-black text-[#006d77]">What to notice</p>
+              <ul className="mt-3 grid gap-3">
+                {scenario.learningPoints.map((point) => (
+                  <li
+                    className="grid grid-cols-[18px_1fr] gap-2 text-sm leading-6 text-[#374151]"
+                    key={point}
+                  >
+                    <span className="mt-2 h-2 w-2 rounded-full bg-[#00afb9]" aria-hidden="true" />
+                    <span>{point}</span>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
 
-            <div className="grid gap-5">
-              <InfoPanel label="Prompt" value={plan.prompt} />
-              <InfoPanel label="Design principle" value={plan.principle} />
-              <InfoPanel label="Why this UI" value={plan.description} />
-            </div>
-          </section>
-
-          <section className="grid gap-4 rounded-lg border border-[#171717]/15 bg-[#171717] p-5 text-white lg:grid-cols-[220px_1fr]">
-            <div>
-              <p className="text-sm font-semibold text-[#f0bd75]">Schema preview</p>
-              <h2 className="mt-1 text-2xl font-black">LLM に任せる境界を小さくする</h2>
-            </div>
-            <pre className="overflow-x-auto rounded-md bg-black/35 p-4 text-xs leading-6 text-[#f7f3ec]">
-              {JSON.stringify(plan, null, 2)}
-            </pre>
-          </section>
+            <section className="rounded-md border border-[#111827] bg-[#111827] p-4 text-white">
+              <p className="text-sm font-black text-[#83c5be]">Protocol sketch</p>
+              <pre className="mt-3 max-h-[420px] overflow-auto rounded-md bg-black/30 p-3 text-xs leading-6 text-[#eef6ff]">
+                {scenario.code}
+              </pre>
+            </section>
+          </aside>
         </div>
       </section>
     </main>
   );
 }
 
-const intentLabel = {
-  dashboard: "進捗を俯瞰する",
-  onboarding: "初回体験を作る",
-  timeline: "ロードマップ化する",
-} satisfies Record<StudyIntent, string>;
+const scenarioLabel = {
+  "mcp-apps": "MCP Apps",
+  a2ui: "A2UI / json-render",
+  webmcp: "WebMCP",
+} satisfies Record<ScenarioId, string>;
 
-function GeneratedBlock({ block, index }: { block: UiBlock; index: number }) {
-  if (block.kind === "hero") {
-    return (
-      <article className="grid gap-4 rounded-md bg-[#f0bd75] p-5 text-[#171717] sm:grid-cols-[1fr_140px]">
-        <div>
-          <p className="text-sm font-black">Block {index + 1}</p>
-          <h3 className="mt-2 text-3xl font-black">{block.title}</h3>
-          <p className="mt-3 max-w-xl leading-7">{block.body}</p>
-        </div>
-        <div className="grid aspect-square place-items-center rounded-full border border-[#171717]/20 bg-white/45 text-center">
-          <span className="px-3 text-3xl font-black">{block.metric}</span>
-        </div>
-      </article>
-    );
-  }
+function ChatBubble({
+  actionResult,
+  message,
+  scenario,
+  setActionResult,
+  setTodoText,
+  todoText,
+}: {
+  actionResult: string;
+  message: ChatMessage;
+  scenario: Scenario;
+  setActionResult: (value: string) => void;
+  setTodoText: (value: string) => void;
+  todoText: string;
+}) {
+  const isUser = message.role === "user";
 
-  if (block.kind === "stats") {
+  return (
+    <article className={cn("grid max-w-[860px] gap-3", isUser && "justify-self-end")}>
+      <div
+        className={cn(
+          "rounded-md px-4 py-3 text-sm leading-6",
+          isUser ? "bg-[#006d77] text-white" : "border border-[#c9d2df] bg-white text-[#1f2937]",
+        )}
+      >
+        <p className="mb-1 text-xs font-black uppercase opacity-70">{message.role}</p>
+        <p>{message.text}</p>
+      </div>
+
+      {message.kind === "surface" ? (
+        <GeneratedSurface
+          actionResult={actionResult}
+          scenario={scenario}
+          setActionResult={setActionResult}
+          setTodoText={setTodoText}
+          todoText={todoText}
+        />
+      ) : null}
+    </article>
+  );
+}
+
+function GeneratedSurface({
+  actionResult,
+  scenario,
+  setActionResult,
+  setTodoText,
+  todoText,
+}: {
+  actionResult: string;
+  scenario: Scenario;
+  setActionResult: (value: string) => void;
+  setTodoText: (value: string) => void;
+  todoText: string;
+}) {
+  if (scenario.tools) {
     return (
-      <article className="grid gap-3 sm:grid-cols-3">
-        {block.items.map((item) => (
-          <div className="rounded-md border border-[#171717]/15 bg-[#f7f3ec] p-4" key={item.label}>
-            <p className="text-sm text-[#665f54]">{item.label}</p>
-            <p className="mt-2 text-3xl font-black">{item.value}</p>
+      <section className="rounded-md border border-[#83c5be] bg-white p-4 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#d6dce8] pb-3">
+          <div>
+            <p className="text-xs font-black text-[#006d77]">WebMCP tool surface</p>
+            <h3 className="text-lg font-black">共有 UI に意味のある操作点を置く</h3>
           </div>
-        ))}
-      </article>
+          <span className="rounded-full bg-[#e0fbfc] px-3 py-1 text-xs font-black text-[#006d77]">
+            human-in-the-loop
+          </span>
+        </div>
+
+        <div
+          className="mt-4 grid gap-3"
+          data-tool-description="Add a new todo item to the list"
+          data-tool-name="add-todo-item"
+        >
+          <label className="grid gap-2 text-sm font-bold">
+            Task text
+            <input
+              className="h-11 rounded-md border border-[#c9d2df] px-3 font-normal outline-none focus:border-[#006d77]"
+              name="text"
+              onChange={(event) => setTodoText(event.target.value)}
+              required
+              value={todoText}
+            />
+          </label>
+          <button
+            className="h-11 rounded-md bg-[#111827] px-4 text-sm font-black text-white"
+            onClick={() => setActionResult(`tool:add-todo -> Added todo: ${todoText}`)}
+            type="button"
+          >
+            Confirm tool execution
+          </button>
+        </div>
+
+        <div aria-live="polite" className="mt-4 rounded-md bg-[#f5f7fb] p-3 text-sm text-[#374151]">
+          {actionResult}
+        </div>
+
+        <div className="mt-4 grid gap-2">
+          {scenario.tools.map((tool) => (
+            <div className="rounded-md border border-[#d6dce8] p-3" key={tool.name}>
+              <p className="font-black">{tool.title}</p>
+              <p className="text-sm leading-6 text-[#4b5563]">{tool.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     );
   }
 
-  if (block.kind === "form") {
+  if (!scenario.surface) {
+    return null;
+  }
+
+  return (
+    <section className="rounded-md border border-[#83c5be] bg-white p-4 shadow-sm">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="text-xs font-black text-[#006d77]">Generated UI surface</p>
+          <h3 className="text-lg font-black">チャット内で操作する</h3>
+        </div>
+        <span className="rounded-full bg-[#e0fbfc] px-3 py-1 text-xs font-black text-[#006d77]">
+          {scenario.surface.surfaceId}
+        </span>
+      </div>
+      <SurfaceRenderer
+        onAction={(actionName) =>
+          setActionResult(`app.callServerTool("${actionName}") -> reservation held`)
+        }
+        surface={scenario.surface}
+      />
+      <div aria-live="polite" className="mt-4 rounded-md bg-[#f5f7fb] p-3 text-sm text-[#374151]">
+        {actionResult}
+      </div>
+    </section>
+  );
+}
+
+function SurfaceRenderer({
+  onAction,
+  surface,
+}: {
+  onAction: (actionName: string) => void;
+  surface: UiSurface;
+}) {
+  return <ComponentNode components={surface.components} id={surface.root} onAction={onAction} />;
+}
+
+function ComponentNode({
+  components,
+  id,
+  onAction,
+}: {
+  components: Array<ComponentSpec>;
+  id: string;
+  onAction: (actionName: string) => void;
+}) {
+  const component = components.find((item) => item.id === id);
+
+  if (!component) {
+    return null;
+  }
+
+  if (component.component === "Card") {
     return (
-      <article className="rounded-md border border-[#171717]/15 p-4">
-        <h3 className="text-lg font-black">{block.title}</h3>
+      <article className="rounded-md border border-[#d6dce8] bg-[#f8fafc] p-4">
+        <h4 className="text-xl font-black">{component.props?.title}</h4>
         <div className="mt-4 grid gap-3">
-          {block.fields.map((field) => (
-            <label className="grid gap-2 text-sm font-semibold" key={field.label}>
-              {field.label}
-              <input
-                className="h-11 rounded-md border border-[#171717]/20 bg-[#f7f3ec] px-3 font-normal outline-none focus:border-[#7a3f2b]"
-                placeholder={field.placeholder}
-                type={field.type}
-              />
-            </label>
+          {component.children?.map((childId) => (
+            <ComponentNode components={components} id={childId} key={childId} onAction={onAction} />
           ))}
         </div>
       </article>
     );
   }
 
-  return (
-    <article className="rounded-md border border-[#171717]/15 p-4">
-      <h3 className="text-lg font-black">{block.title}</h3>
-      <div className="mt-4 grid gap-3">
-        {block.steps.map((step) => (
-          <div className="grid grid-cols-[76px_1fr] gap-4" key={step.label}>
-            <span
-              className={cn(
-                "rounded-full px-3 py-1 text-center text-xs font-black",
-                step.state === "done" && "bg-[#dbe9dd] text-[#25422d]",
-                step.state === "next" && "bg-[#f0bd75] text-[#171717]",
-                step.state === "later" && "bg-[#e8e2d8] text-[#665f54]",
-              )}
-            >
-              {step.label}
-            </span>
-            <p className="text-sm leading-6 text-[#4d4840]">{step.description}</p>
-          </div>
+  if (component.component === "Column") {
+    return (
+      <div className="grid gap-3">
+        {component.children?.map((childId) => (
+          <ComponentNode components={components} id={childId} key={childId} onAction={onAction} />
         ))}
       </div>
-    </article>
-  );
-}
+    );
+  }
 
-function InfoPanel({ label, value }: { label: string; value: string }) {
+  if (component.component === "Metric") {
+    return (
+      <div className="grid grid-cols-[1fr_auto] items-center rounded-md bg-white p-3">
+        <p className="text-sm text-[#4b5563]">{component.props?.label}</p>
+        <p className="text-lg font-black">{component.props?.value}</p>
+      </div>
+    );
+  }
+
+  if (component.component === "Button") {
+    return (
+      <button
+        className="h-11 rounded-md bg-[#ff7d5c] px-4 text-sm font-black text-[#111827]"
+        onClick={() => onAction(component.action?.name ?? "unknown_action")}
+        type="button"
+      >
+        {component.props?.label}
+      </button>
+    );
+  }
+
   return (
-    <article className="rounded-lg border border-[#171717]/15 bg-white p-5">
-      <p className="text-sm font-black text-[#7a3f2b]">{label}</p>
-      <p className="mt-3 leading-7 text-[#3a3731]">{value}</p>
-    </article>
+    <p
+      className={cn(
+        "text-sm leading-6 text-[#374151]",
+        component.props?.tone === "strong" && "text-lg font-black",
+      )}
+    >
+      {component.text}
+    </p>
   );
 }
