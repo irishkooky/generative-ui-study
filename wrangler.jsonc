@@ -1,5 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  "account_id": "1e4d8161674281ac9ae8b8429b0e2b49",
   "name": "generative-ui-study",
   "compatibility_date": "2026-07-01",
   "compatibility_flags": ["nodejs_compat"],
