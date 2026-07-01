@@ -1,50 +1,66 @@
-# TanStack Start Starter
+# Generative UI Study
 
-A minimal application template built with [TanStack Start](https://tanstack.com/start) and [TanStack Router](https://tanstack.com/router), using [Vite+](https://viteplus.dev/) as the unified CLI for development, builds, formatting, linting, and tests.
+TanStack Start と Cloudflare Workers で Generative UI を学ぶための実験プロジェクトです。
 
-## What you get
+このリポジトリは `lightsound/tanstack-start-start` をベースに、AI が直接 React を生成する前段階として重要な「intent -> UI schema -> renderer」の流れを触れる学習ラボに更新しています。
 
-- **TanStack Start** with file-based routing under `src/routes/`
-- **React 19** and **TypeScript**
-- **Tailwind CSS 4** with the Vite plugin
-- [**`cnfast`**](https://github.com/aidenybai/cnfast) for class name merging (drop-in replacement for `clsx` + `tailwind-merge`)
-- **Vite+**-managed tooling: Oxlint, Oxfmt, Vitest-style testing via `vite-plus/test` (see [AGENTS.md](AGENTS.md) for workflow and pitfalls)
+## 学べること
 
-## Requirements
+- ユーザーの目的を `StudyIntent` として分類する
+- 目的ごとに UI schema を生成する
+- schema を React component に渡して UI を描画する
+- LLM 連携前に、生成結果の境界を型で小さく保つ
+- TanStack Start アプリを Cloudflare Workers にデプロイする
 
-- **Node.js** — see [`.node-version`](.node-version) (matches the `engines` field in `package.json`)
-- **[Vite+](https://viteplus.dev/guide/)** — so the `vp` command is available on your `PATH`
+## 主要ファイル
 
-Use `vp` for all dependency and tooling operations; see [AGENTS.md](AGENTS.md) for the full workflow and pitfalls.
+| File                       | Purpose                                      |
+| -------------------------- | -------------------------------------------- |
+| `src/lib/generative-ui.ts` | intent から UI schema を返す学習用 generator |
+| `src/routes/index.tsx`     | schema を描画する interactive renderer       |
+| `wrangler.jsonc`           | Cloudflare Workers のデプロイ設定            |
 
-## Getting started
+## セットアップ
 
 ```bash
-git clone https://github.com/lightsound/tanstack-start-start.git
-cd tanstack-start-start
 vp install
 vp dev
 ```
 
-Open the URL printed in the terminal (Vite’s default is usually `http://localhost:5173`).
+Vite が表示する URL をブラウザで開きます。
 
-## Everyday commands
+## よく使うコマンド
 
-| Command      | Purpose                                                          |
-| ------------ | ---------------------------------------------------------------- |
-| `vp dev`     | Start the dev server with HMR                                    |
-| `vp build`   | Production build                                                 |
-| `vp preview` | Preview the production build locally                             |
-| `vp check`   | Format, lint, and type-check (fix with `--fix` where applicable) |
-| `vp test`    | Run tests                                                        |
-| `vp help`    | List built-in commands and options                               |
+| Command         | Purpose                                 |
+| --------------- | --------------------------------------- |
+| `vp dev`        | 開発サーバー                            |
+| `vp check`      | format, lint, type-check                |
+| `vp test`       | テスト                                  |
+| `vp build`      | 本番ビルド                              |
+| `vp run deploy` | build 後に Cloudflare Workers へ deploy |
 
-`package.json` scripts (`dev`, `build`, `check`, `test`, …) delegate to these same `vp` entry points.
+## Cloudflare Workers
 
-Optional maintenance tools (not part of `vp check`):
+初回のみ Cloudflare にログインします。
 
-- `vp run fallow` — unused files, dependencies, exports (`.fallowrc.json`)
-- `vp run doctor` — React health checks (`react-doctor`, `--no-lint` in the script)
+```bash
+vp dlx wrangler@latest login
+```
+
+デプロイ:
+
+```bash
+vp run deploy
+```
+
+`wrangler.jsonc` は TanStack Start の build output に合わせて、static assets を `dist/client`、Worker entry を `dist/server/server.js` に向けています。
+
+## 次に試すとよい拡張
+
+- `createUiPlan` の前段に LLM API を置き、JSON schema を検証してから renderer に渡す
+- 生成失敗時に fallback UI を表示する
+- Cloudflare Workers AI や AI Gateway と接続する
+- UI block を増やし、form, chart, table, timeline などを schema 化する
 
 ## License
 

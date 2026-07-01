@@ -20,7 +20,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { content: "width=device-width, initial-scale=1", name: "viewport" },
-      { title: "TanStack Start Template" },
+      { title: "Generative UI Study" },
     ],
   }),
   notFoundComponent: NotFoundComponent,
